@@ -1,9 +1,10 @@
 // Coloque aqui suas actions
 export const EMAIL_SALVO = 'EMAIL_SALVO';
-export const CURRENCIES = 'CURRENCIES';
 export const VALOR = 'VALOR';
+export const CURRENCIES = 'CURRENCIES';
+export const ADD_COINS = 'ADD_COINS';
 
-export const emaill = (email) => ({
+export const actionEmail = (email) => ({
   type: EMAIL_SALVO,
   payload: email,
 });
@@ -13,9 +14,14 @@ export const currenciess = (currencies) => ({
   currencies,
 });
 
-export const valorr = (valor) => ({
+export const actionValor = (valor) => ({
   type: VALOR,
   valor,
+});
+
+export const currienciessadd = (currencies) => ({
+  type: ADD_COINS,
+  currencies,
 });
 
 export function fetchApi() {
@@ -25,3 +31,13 @@ export function fetchApi() {
       .then((data) => dispatch(currenciess(data)));
   };
 }
+
+export const fetchCambio = (gastos) => (dispatch) => {
+  fetch('https://economia.awesomeapi.com.br/json/all')
+    .then((response) => response.json())
+    .then((data) => {
+      delete data.USDT;
+      gastos = { ...gastos, exchangeRates: data };
+      dispatch(currienciessadd(gastos));
+    });
+};

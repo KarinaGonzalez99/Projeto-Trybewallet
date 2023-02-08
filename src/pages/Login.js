@@ -1,7 +1,7 @@
 import React, { Component } from 'react'; // iniciando
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { emaill } from '../redux/actions';
+import { actionEmail } from '../redux/actions';
 
 class Login extends Component {
   state = {
@@ -29,7 +29,7 @@ class Login extends Component {
   handlePageRedirect = () => {
     const { dispatch, history } = this.props;
     const { email } = this.state;
-    dispatch(emaill(email));
+    dispatch(actionEmail(email));
     history.push('/carteira');
   };
 

@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+// import { deletar, edit } from '../redux/actions'; // creio que n passou no github por conta q eu esqueci essa parte
 
 class Table extends Component {
   render() {
@@ -6,53 +9,58 @@ class Table extends Component {
     return (
       <div>
         <table>
-          <th>Descrição</th>
-          <th>Moeda de conversão</th>
-          <th>Moeda</th>
-          <th>Valor</th>
-          <th>Câmbio utilizado</th>
-          <th>Valor convertido</th>
-          <th>Tag</th>
-          <th>Método de pagamento</th>
-          <th>Editar/Excluir</th>
-        </table>
-
-        <tbody>
-          {expenses.map((event) => (
-            <tr key={ event }>
-              <td>
-                {event.description}
-              </td>
-              <td>
-                {event.tag}
-              </td>
-              <td>
-                {event.method}
-              </td>
-              <td>
-                {Number(event.value).toFixed(2)}
-              </td>
-              <td>
-                {event.exchangeRates[event.currency].name}
-              </td>
-              <td>
-                {Number(event.exchangeRates[event.currency].ask).toFixed(2)}
-              </td>
-              <td>
-                {Number(event.exchangeRates[event.currency].ask).toFixed(2)}
-              </td>
-              <td>
-                {Number(event.exchangeRates[event.currency].ask * event.value).toFixed(2)}
-              </td>
+          <thead>
+            <tr>
+              <th>Descrição</th>
+              <th>Moeda de conversão</th>
+              <th>Moeda</th>
+              <th>Valor</th>
+              <th>Câmbio utilizado</th>
+              <th>Valor convertido</th>
+              <th>Tag</th>
+              <th>Método de pagamento</th>
+              <th>Editar/Excluir</th>
             </tr>
-          ))}
-        </tbody>
+          </thead>
+          <tbody>
+            {expenses.map((event) => (
+              <tr key={ event }>
+                <td>
+                  {event.description}
+                </td>
+                <td>
+                  {event.tag}
+                </td>
+                <td>
+                  {event.method}
+                </td>
+                <td>
+                  {Number(event.value).toFixed(2)}
+                </td>
+                <td>
+                  {event.exchangeRates[event.currency].name}
+                </td>
+                <td>
+                  {Number(event.exchangeRates[event.currency].ask).toFixed(2)}
+                </td>
+                <td>
+                  {Number(event.exchangeRates[event.currency].ask).toFixed(2)}
+                </td>
+                <td>
+                  {Number(event.exchangeRates[event.currency].ask * event.value)
+                    .toFixed(2)}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     );
   }
 }
 Table.propTypes = {
   expenses: PropTypes.arrayOf(),
+  dispatch: PropTypes.func,
 }.isRequired;
 
 const mapStateToProps = (state) => ({

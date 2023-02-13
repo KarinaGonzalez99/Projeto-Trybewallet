@@ -24,9 +24,9 @@ export const currienciessadd = (currencies) => ({
 });
 
 export const DEL_ON = 'DEL_ON';
-export const deletar = (payload) => ({
+export const deletar = (id) => ({
   type: DEL_ON,
-  payload,
+  id,
 });
 
 export const EDIT = 'EDIT';

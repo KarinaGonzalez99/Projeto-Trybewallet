@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import { deletar, edit } from '../redux/actions'; // creio que n passou no github por conta q eu esqueci essa parte
+import { deletar } from '../redux/actions'; // creio que n passou no github por conta q eu esqueci essa parte
 
 class Table extends Component {
+  handleDelete = (id) => {
+    const { dispatch } = this.props;
+    dispatch(deletar(id));
+  };
+
   render() {
     const { expenses } = this.props; // chamado da api
     return (
@@ -24,7 +29,8 @@ class Table extends Component {
           </thead>
           <tbody>
             {expenses.map((event) => (
-              <tr key={ event }>
+              <tr key={ event.id }>
+                {/* horas tentando fazer passar porque eu esqueci do .id #bolada */}
                 <td>
                   {event.description}
                 </td>
@@ -49,6 +55,15 @@ class Table extends Component {
                 <td>
                   {Number(event.exchangeRates[event.currency].ask * event.value)
                     .toFixed(2)}
+                </td>
+                <td>
+                  <button
+                    type="button"
+                    data-testid="delete-btn"
+                    onClick={ () => this.handleDelete(event.id) }
+                  >
+                    Excluir
+                  </button>
                 </td>
               </tr>
             ))}
